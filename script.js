@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Custom Cursor Glow Logic
     const glow = document.querySelector('.cursor-glow');
-    
+
     document.addEventListener('mousemove', (e) => {
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
 
     hamburger.addEventListener('click', () => {
-        const isClosed = navLinks.style.display === 'none' || navLinks.style.display === '';
-        navLinks.style.display = isClosed ? 'flex' : 'none';
+        navLinks.classList.toggle('active');
     });
 
     // Smooth Scroll for Links
