@@ -1,0 +1,563 @@
+/* CyberPulse Design System */
+:root {
+    --bg-dark: #050505;
+    --bg-panel: #0a0a12;
+    --neon-blue: #00f3ff;
+    --neon-purple: #bc13fe;
+    --text-main: #e0e0e0;
+    --text-dim: #a0a0a0;
+    --font-head: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Background Noise & Effects */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
+    pointer-events: none;
+    z-index: 0;
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.15), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: screen;
+}
+
+/* Typography & Utility */
+h1, h2, h3 {
+    font-family: var(--font-head);
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.section {
+    padding: 80px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+}
+
+.logo {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.logo .pulse {
+    color: var(--neon-blue);
+    animation: textFlicker 3s infinite;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: var(--font-head);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--neon-blue);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('cyberpulse_hero.png') no-repeat center center/cover;
+    overflow: hidden;
+}
+
+/* Assuming the image might not be there yet, add a fallback gradient */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent, var(--bg-dark));
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    position: relative;
+}
+
+.glitch {
+    position: relative;
+    color: white;
+}
+
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--neon-purple);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitchAnim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 var(--neon-blue);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitchAnim2 5s infinite linear alternate-reverse;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: var(--neon-blue);
+    font-weight: 300;
+}
+
+/* Cyber Button */
+.cyber-btn {
+    position: relative;
+    display: inline-block;
+    padding: 15px 40px;
+    background: transparent;
+    border: 1px solid var(--neon-purple);
+    color: var(--neon-purple);
+    text-decoration: none;
+    font-family: var(--font-head);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.cyber-btn:hover {
+    background: var(--neon-purple);
+    color: white;
+    box-shadow: 0 0 20px var(--neon-purple);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.scroll-indicator span {
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid var(--neon-blue);
+    border-right: 2px solid var(--neon-blue);
+    transform: rotate(45deg);
+    animation: scrollAnim 2s infinite;
+}
+
+.scroll-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.scroll-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+/* Grid Services */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 30px;
+    border-radius: 5px;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-blue);
+    box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--neon-purple);
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.card p {
+    color: var(--text-dim);
+}
+
+/* Tech Section */
+.tech-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.tech-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.tech-list {
+    list-style: none;
+    margin-top: 30px;
+}
+
+.tech-list li {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tech-list i {
+    color: var(--neon-blue);
+}
+
+.tech-visual {
+    flex: 1;
+    min-width: 300px;
+    height: 400px;
+    background: var(--bg-panel);
+    border: 1px solid var(--neon-blue);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.code-block {
+    font-family: 'Courier New', monospace;
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px var(--neon-blue);
+    z-index: 2;
+}
+
+.circle-rotate {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border: 1px dashed var(--neon-purple);
+    border-radius: 50%;
+    animation: rotateCircle 20s linear infinite;
+}
+
+/* Contact Form */
+.contact-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--bg-panel);
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.contact h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1rem;
+    color: white;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #555;
+    outline: none;
+    font-family: var(--font-body);
+}
+
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #999;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus ~ label, .input-group input:valid ~ label,
+.input-group textarea:focus ~ label, .input-group textarea:valid ~ label {
+    top: -20px;
+    font-size: 0.8rem;
+    color: var(--neon-blue);
+}
+
+.input-group .bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--neon-blue);
+    transition: 0.3s;
+}
+
+.input-group input:focus ~ .bar,
+.input-group textarea:focus ~ .bar {
+    width: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+}
+
+/* Footer & Socials */
+.footer {
+    padding: 30px 20px;
+    background: black;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.socials {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.socials a {
+    color: var(--text-dim);
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+
+.socials a:hover {
+    color: var(--neon-blue);
+    transform: scale(1.2);
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #00d647;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transition: 0.3s;
+    animation: pulseBtn 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background: #03ff55;
+}
+
+/* Animations Keyframes */
+@keyframes textFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.1; }
+}
+
+@keyframes glitchAnim {
+    0% { clip: rect(20px, 9999px, 80px, 0); }
+    20% { clip: rect(60px, 9999px, 10px, 0); }
+    40% { clip: rect(10px, 9999px, 50px, 0); }
+    60% { clip: rect(90px, 9999px, 20px, 0); }
+    80% { clip: rect(30px, 9999px, 70px, 0); }
+    100% { clip: rect(50px, 9999px, 40px, 0); }
+}
+
+@keyframes scrollAnim {
+    0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: rotate(45deg) translate(5px, 5px); }
+}
+
+@keyframes rotateCircle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulseBtn {
+    0% { box-shadow: 0 0 0 0 rgba(0, 214, 71, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(0, 214, 71, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 214, 71, 0); }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .navbar { padding: 15px 20px; }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: black;
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+    }
+    .hamburger {
+        display: block;
+        width: 30px;
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+    }
+    .hamburger span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: white;
+        margin-bottom: 5px;
+    }
+    .hero h1 { font-size: 2.5rem; }
+    .tech-container { flex-direction: column; }
+    .tech-visual { width: 100%; }
+}
